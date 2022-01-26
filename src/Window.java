@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.Point2D;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -29,7 +30,7 @@ public class Window extends JPanel implements ActionListener, MouseListener {
 	
 	public Window() {
 		frame = new JFrame();
-		fab = new Fabrik(80, 8);
+		fab = new Fabrik(4, 200);
 		
 		t = new Timer(14, this);
 		
@@ -61,21 +62,21 @@ public class Window extends JPanel implements ActionListener, MouseListener {
 		// Draw lines
 		Color lineCol = fab.isOverExtended() ? Color.RED : Color.BLACK;
 		
-		Point[] points = fab.getPoints();
-		Point a, b = new Point(0, 0);
+		Point2D.Double[] points = fab.getPoints();
+		Point2D.Double a, b = new Point2D.Double(0, 0);
 		for (int i = 1; i < points.length; i++) {
 			a = points[i-1];
 			b = points[i];
 			
 			g2.setColor(lineCol);
 			//drawPoint(g2, a, lineCol);
-			g2.drawLine(a.x, a.y, b.x, b.y);
+			g2.drawLine((int) Math.round(a.x), (int) Math.round(a.y), (int) Math.round(b.x), (int) Math.round(b.y));
 		}
 		drawPoint(g2, b);
 	}
 	
-	private void drawPoint(Graphics2D g2, Point p) {
-		g2.fillOval(p.x-5, p.y-5, 10, 10);
+	private void drawPoint(Graphics2D g2, Point2D.Double p) {
+		g2.fillOval((int) Math.round(p.x)-5, (int) Math.round(p.y)-5, 10, 10);
 	}
 	
 	@Override
@@ -85,8 +86,9 @@ public class Window extends JPanel implements ActionListener, MouseListener {
 			this.repaint();
 			
 			if (mouseDown) {
-				//Point loc = MouseInfo.getPointerInfo().getLocation()
-				Point loc = getMousePosition();
+				//Point2D.Double loc = MouseInfo.getPointerInfo().getLocation()
+				Point m = getMousePosition();
+				Point2D.Double loc = new Point2D.Double(m.x, m.y);
 				
 				if (loc == null) return;
 					

@@ -1,23 +1,23 @@
-import java.awt.Point;
+import java.awt.geom.Point2D;
 
 public class Fabrik {
-	private Point source;
-	private Point target;
-	private Point[] points;
+	private Point2D.Double source;
+	private Point2D.Double target;
+	private Point2D.Double[] points;
 	
 	private int lineLength;
 	
 	public Fabrik(int pointCount, int lineLength) {
 		this.lineLength = lineLength;
 		
-		points = new Point[pointCount];
+		points = new Point2D.Double[pointCount];
 		
 		for (int i = 0; i < pointCount; i++) {
-			points[i] = new Point(lineLength*i, 10+10*(i % 2));
+			points[i] = new Point2D.Double(lineLength*i, 10+10*(i % 2));
 		}
 		
-		this.source = new Point(0, 0);
-		this.target = new Point(lineLength*pointCount, 0);
+		this.source = new Point2D.Double(0, 0);
+		this.target = new Point2D.Double(lineLength*pointCount, 0);
 	}
 	
 	public void update() {
@@ -33,7 +33,7 @@ public class Fabrik {
 	}
 	
 	private void forwardPass() {
-		points[0] = (Point) source.clone();
+		points[0] = (Point2D.Double) source.clone();
 		
 		for (int i = 1; i < points.length; i++) {
 			points[i] = normalisePoint(points[i-1], points[i], lineLength);
@@ -41,7 +41,7 @@ public class Fabrik {
 	}
 	
 	private void backwardPass() {
-		points[points.length-1] = (Point) target.clone();
+		points[points.length-1] = (Point2D.Double) target.clone();
 		
 		for (int i = points.length-2; i >= 0; i--) {
 			points[i] = normalisePoint(points[i+1], points[i], lineLength);
@@ -52,8 +52,7 @@ public class Fabrik {
 		return Math.pow(source.x-target.x, 2) + Math.pow(source.y-target.y, 2) > Math.pow(lineLength*(points.length-1), 2);
 	}
 	
-	public Point normalisePoint(Point staticPoint, Point pointToMove, int length) {
-		//TODO
+	public Point2D.Double normalisePoint(Point2D.Double staticPoint, Point2D.Double pointToMove, int length) {
 		
 		double xDif = pointToMove.x-staticPoint.x;
 		double yDif = pointToMove.y-staticPoint.y;
@@ -66,32 +65,32 @@ public class Fabrik {
 		yDif = yDif/currentLength;
 		yDif *= length;
 		
-		return new Point((int) Math.round(staticPoint.x+xDif), (int) Math.round(staticPoint.y+yDif));
+		return new Point2D.Double(staticPoint.x+xDif, staticPoint.y+yDif);
 	}
 	
 	// Spaghetters
 	
-	public Point getSource() {
+	public Point2D.Double getSource() {
 		return source;
 	}
 
-	public void setSource(Point source) {
+	public void setSource(Point2D.Double source) {
 		this.source = source;
 	}
 
-	public Point getTarget() {
+	public Point2D.Double getTarget() {
 		return target;
 	}
 
-	public void setTarget(Point target) {
+	public void setTarget(Point2D.Double target) {
 		this.target = target;
 	}
 
-	public Point[] getPoints() {
+	public Point2D.Double[] getPoints() {
 		return points;
 	}
 
-	public void setPoints(Point[] points) {
+	public void setPoiubt(Point2D.Double[] points) {
 		this.points = points;
 	}
 	
