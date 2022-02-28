@@ -1,7 +1,5 @@
 # FabrikJavaDemo
-A demonstration of the fabrik inverse kinematic algorithm in Java
-
-Based on explanation by Sebastian Lague: https://youtu.be/PGk0rnyTa1U?t=179
+A demonstration of the [fabrik inverse kinematic algorithm](https://www.sciencedirect.com/science/article/abs/pii/S1524070311000178?via%3Dihub) in Java
 
 ![String](https://user-images.githubusercontent.com/30124354/151080701-98c20458-1017-4a8e-af52-054a3d49ae33.gif)
 
